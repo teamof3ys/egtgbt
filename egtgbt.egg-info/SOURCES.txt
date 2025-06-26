@@ -1,0 +1,13 @@
+pyproject.toml
+setup.py
+bots/__init__.py
+bots/bot_4.py
+egtgbt.egg-info/PKG-INFO
+egtgbt.egg-info/SOURCES.txt
+egtgbt.egg-info/dependency_links.txt
+egtgbt.egg-info/requires.txt
+egtgbt.egg-info/top_level.txt
+tests/test_generate.py
+tests/tests_test_integration.py
+utils/__init__.py
+utils/utils_validation.py

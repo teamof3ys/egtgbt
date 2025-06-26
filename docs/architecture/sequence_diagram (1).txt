@@ -1,0 +1,56 @@
+@startuml
+actor User
+participant Bot
+participant Dispatcher
+participant FSMContext
+participant Database
+
+User -> Bot: /create_bot
+Bot -> Dispatcher: обработать команду
+Dispatcher -> FSMContext: установить состояние template
+Dispatcher -> Bot: отправить сообщение с выбором шаблона
+Bot -> User: "Выберите шаблон для нового бота:" + кнопки
+User -> Bot: нажатие кнопки "Опросник"
+Bot -> Dispatcher: обработать callback "template_poll"
+Dispatcher -> FSMContext: обновить данные (template="poll", config, poll_list)
+Dispatcher -> Bot: запрос имени бота
+Bot -> User: "Введите имя нового бота:"
+User -> Bot: <bot_name>
+Bot -> Dispatcher: обработать сообщение
+Dispatcher -> FSMContext: обновить config["bot_name"]
+Dispatcher -> Bot: запрос токена
+Bot -> User: "Введите токен бота..."
+User -> Bot: <bot_token>
+Bot -> Dispatcher: обработать сообщение
+Dispatcher -> FSMContext: обновить bot_token
+Dispatcher -> Bot: запрос количества опросов
+Bot -> User: "Сколько опросов..."
+User -> Bot: <poll_count>
+Bot -> Dispatcher: обработать сообщение
+loop для каждого опроса (poll_count раз)
+  Dispatcher -> FSMContext: обновить current_poll
+  Dispatcher -> Bot: запрос вопроса
+  Bot -> User: "Введите текст вопроса..."
+  User -> Bot: <question>
+  Bot -> Dispatcher: обработать сообщение
+  Dispatcher -> FSMContext: обновить poll_question
+  Dispatcher -> Bot: запрос количества вариантов ответа
+  Bot -> User: "Сколько вариантов ответа..."
+  User -> Bot: <options_count>
+  Bot -> Dispatcher: обработать сообщение
+  Dispatcher -> FSMContext: обновить options_count, current_option
+  loop для каждого варианта (options_count раз)
+    Dispatcher -> Bot: запрос варианта ответа
+    Bot -> User: "Введите текст варианта..."
+    User -> Bot: <option>
+    Bot -> Dispatcher: обработать сообщение
+    Dispatcher -> FSMContext: добавить в current_options
+  end
+  Dispatcher -> FSMContext: добавить в poll_list
+end
+Dispatcher -> FSMContext: вызвать finalize_poll
+FSMContext -> Database: сохранить конфигурацию и опросы
+Database --> FSMContext: config_id
+FSMContext -> Bot: сгенерировать и запустить бот
+Bot -> User: "Бот '<bot_name>' успешно создан..."
+@enduml

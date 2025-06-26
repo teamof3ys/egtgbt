@@ -1,0 +1,106 @@
+{
+  "bot_name": "MyBusinessCardBot",
+  "handlers": [
+    {
+      "command": "/start",
+      "text": "Привет! Я бот-визитка.\n\nЗдесь вы можете найти всю необходимую информацию обо мне и связаться со мной.",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            { "text": "Мой сайт", "url": "https://example.com" },
+            {
+              "text": "Контакты",
+              "callback_data": "contact_info",
+              "response": "Свяжитесь со мной:\nEmail: user@example.com\nТелефон: +1234567890"
+            }
+          ],
+          [{ "text": "Позвонить", "url": "tel:+1234567890" }]
+        ]
+      }
+    },
+    {
+      "command": "/help",
+      "text": "Просто нажмите /start, чтобы увидеть визитку."
+    },
+    {
+      "command": "/faq",
+      "text": "Часто задаваемые вопросы:\nВыберите интересующий вопрос.",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Что вы делаете?",
+              "callback_data": "faq_what_do_you_do",
+              "response": "Мы создаем крутые Telegram-боты!"
+            },
+            {
+              "text": "Как связаться?",
+              "callback_data": "faq_contact",
+              "response": "Напишите на почту user@example.com или позвоните +1234567890."
+            }
+          ],
+          [
+            {
+              "text": "Где вы находитесь?",
+              "callback_data": "faq_location",
+              "response": "Наш офис находится в центре города."
+            },
+            {
+              "text": "Вопрос 2",
+              "callback_data": "faq_q2",
+              "response": "Ответ на вопрос 2"
+            }
+          ]
+        ]
+      }
+    },
+    {
+      "command": "/create_bot",
+      "text": "Начать создание нового бота."
+    },
+    {
+      "command": "/list_bots",
+      "text": "Показать список ваших ботов."
+    },
+    {
+      "command": "/edit_bot",
+      "text": "Редактировать существующего бота."
+    },
+    {
+      "command": "/delete_bot",
+      "text": "Удалить бота."
+    },
+    {
+      "command": "/menu",
+      "text": "Выберите действие:",
+      "reply_markup": {
+        "inline_keyboard": [
+          [
+            {
+              "text": "Создать бота",
+              "callback_data": "menu_create_bot",
+              "response": "Начнем создание бота!"
+            },
+            {
+              "text": "Список ботов",
+              "callback_data": "menu_list_bots",
+              "response": "Показываю ваши боты."
+            }
+          ],
+          [
+            {
+              "text": "Редактировать бота",
+              "callback_data": "menu_edit_bot",
+              "response": "Выберите бота для редактирования."
+            },
+            {
+              "text": "Удалить бота",
+              "callback_data": "menu_delete_bot",
+              "response": "Выберите бота для удаления."
+            }
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["egtgbt*"]
+
+[tool.setuptools.package-data]
+"egtgbt" = ["*.json"]

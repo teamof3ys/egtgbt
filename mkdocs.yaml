@@ -1,0 +1,10 @@
+site_name: Telegram Bot Builder
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Getting Started: getting_started.md
+  - Templates: templates.md
+markdown_extensions:
+  - pymdownx.highlight
+  - pymdownx.superfences

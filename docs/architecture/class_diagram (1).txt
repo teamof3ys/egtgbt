@@ -1,0 +1,62 @@
+@startuml
+!define RECTANGLE class
+!define RELATIONSHIP --|> 
+
+' Классы
+RECTANGLE Bot {
+  - BOT_TOKEN: str
+  + start_polling()
+}
+
+RECTANGLE Dispatcher {
+  - storage: MemoryStorage
+  + register_message_handler()
+  + register_callback_query_handler()
+}
+
+RECTANGLE StatesGroup {
+  - states: dict
+  + name: State
+  + confirm: State
+  + template: State
+  + bot_name: State
+  + bot_token: State
+  + welcome_text: State
+  + phone: State
+  + email: State
+  + website: State
+  + help_text: State
+  + faq_count: State
+  + faq_question: State
+  + faq_answer: State
+  + more_faq: State
+  + poll_count: State
+  + poll_question: State
+  + poll_options_count: State
+  + poll_option: State
+  + more_polls: State
+  + config_id: State
+}
+
+RECTANGLE BotConfig {
+  - bot_name: str
+  - handlers: list
+  - bot_token: str
+  + validate_config()
+}
+
+RECTANGLE Database {
+  - conn: sqlite3.Connection
+  + init_db()
+  + save_config(user_id, bot_name, config_json, bot_token)
+  + get_configs(user_id)
+  + delete_config(config_id, user_id)
+}
+
+' Отношения
+Bot --> Dispatcher : использует
+Dispatcher --> StatesGroup : управляет состояниями
+BotConfig --> Database : сохраняется в
+Dispatcher --> BotConfig : обрабатывает конфигурации
+
+@enduml
