@@ -6,7 +6,7 @@ import sqlite3
 from target_bot_code import generate_and_run_bot, escape_markdown, validate_config, validate_block_schema, init_db
 
 def is_valid_text(text):
-    """Validate text to ensure it contains only safe characters."""
+
     if not text:
         return False
     allowed_chars = set(

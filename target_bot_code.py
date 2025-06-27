@@ -151,7 +151,7 @@ async def command_start_handler(message: Message, state: FSMContext) -> None:
         await state.set_state(RegistrationForm.name)
 
 def escape_markdown(text):
-    """Escape all MarkdownV2 special characters for Telegram and ensure Python string safety."""
+
     if not text:
         return text
     special_chars = r'_[]()*~`>#+-=|{}.!?'
@@ -418,7 +418,7 @@ async def process_help_text(message: Message, state: FSMContext) -> None:
     await finalize_business_card(message, state)
 
 def is_valid_text(text):
-    """Validate text to ensure it contains only safe characters for Markdown and Python strings."""
+
     if not text:
         return False
     allowed_chars = set(
